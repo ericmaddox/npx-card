@@ -10,7 +10,7 @@ npx ericmaddox
 
 ## Preview
 
-![npx ericmaddox](assets/npx_card.png)
+![npx ericmaddox](https://raw.githubusercontent.com/ericmaddox/npx-card/main/assets/npx_card.png)
 
 ## Features
 
