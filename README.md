@@ -10,33 +10,15 @@ npx ericmaddox
 
 ## Preview
 
-```
-                 · ˚ ✦ ˚ ·
-           ░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░
-         ░▒░    Eric Maddox    ░▒░
-         ░▒░ Senior Technical Program Manager ░▒░
-           ░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░
-                 · ✦ · ✦ ·
-                   ░░░░░░░
-                     ░░░
-                   ╔═════╗
-                   ║     ║
-               ╔═══╝     ╚═══╗
-               ║ ░░▒▓███▓▒░░ ║
-               ║  ░▒▓████▓▒░ ║
-               ║ ░░▒▓███▓▒░░ ║
-               ║  ░▒▓████▓▒░ ║
-               ╚═════════════╝
+![npx ericmaddox](assets/npx_card.png)
 
-               ⚗️  AI Alchemist  ⚗️
+## Features
 
-   Email     aialchemist.dev@gmail.com
-   GitHub    github.com/ericmaddox
-   LinkedIn  linkedin.com/in/ericmaddox270
-   Web       https://www.aialchemist.dev/
-
-   Card      npx ericmaddox
-```
+- 🧙 Cyberpunk wizard ASCII art
+- 🎨 Neon color scheme (magenta, cyan, green, amber)
+- 🔗 Clickable links for email, GitHub, LinkedIn, and website
+- 💻 Interactive menu to open links directly
+- ⚡ Terminal-style cyberpunk aesthetics
 
 ## Links
 
