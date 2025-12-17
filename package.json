@@ -1,0 +1,35 @@
+{
+  "name": "ericmaddox",
+  "version": "1.0.4",
+  "description": "Eric Maddox - AI Alchemist - npx business card",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "ericmaddox": "cli.js"
+  },
+  "scripts": {
+    "test": "node cli.js"
+  },
+  "keywords": [
+    "npx",
+    "business-card",
+    "cli",
+    "ai",
+    "alchemist"
+  ],
+  "author": "Eric Maddox <aialchemist.dev@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericmaddox/ericmaddox.git"
+  },
+  "homepage": "https://www.aialchemist.dev/",
+  "dependencies": {
+    "@inquirer/prompts": "^8.1.0",
+    "boxen": "^8.0.1",
+    "chalk": "^5.6.2",
+    "inquirer": "^13.1.0",
+    "open": "^11.0.0",
+    "terminal-link": "^5.0.0"
+  }
+}
