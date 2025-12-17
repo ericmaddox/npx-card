@@ -3,81 +3,89 @@ import boxen from 'boxen';
 import terminalLink from 'terminal-link';
 import data from './lib/data.js';
 
-// Color palette - mystical alchemist theme
-const purple = chalk.hex('#9B59B6');
-const gold = chalk.hex('#F1C40F');
-const cyan = chalk.hex('#00D9FF');
-const green = chalk.hex('#2ECC71');
-const smoke = chalk.hex('#708090');
-const smokeLight = chalk.hex('#B8B8B8');
+// Color palette - cyberpunk theme
+const neonCyan = chalk.hex('#00FFFF');
+const hotMagenta = chalk.hex('#FF00FF');
+const electricGreen = chalk.hex('#00FF00');
+const terminalAmber = chalk.hex('#FFB000');
+const neonPink = chalk.hex('#FF1493');
 const white = chalk.white;
-const magenta = chalk.hex('#E056FD');
-const orange = chalk.hex('#F39C12');
 const dim = chalk.dim;
-const blue = chalk.hex('#3498DB');
+const gray = chalk.hex('#888888');
 
-// Labels
-const labelEmail = white.bold('Email');
-const labelGithub = white.bold('GitHub');
-const labelLinkedin = white.bold('LinkedIn');
-const labelWeb = white.bold('Web');
-const labelCard = white.bold('Card');
+// Labels with cyberpunk brackets
+const labelEmail = gray('[') + white.bold('EMAIL') + gray(']    ');
+const labelGithub = gray('[') + white.bold('GITHUB') + gray(']   ');
+const labelLinkedin = gray('[') + white.bold('LINKEDIN') + gray('] ');
+const labelWeb = gray('[') + white.bold('WEB') + gray(']      ');
 
-// Clickable links (hide fallback URL if terminal doesn't support)
-const emailLink = terminalLink(cyan(data.email), `mailto:${data.email}`, { fallback: false });
-const githubLink = terminalLink(purple('github.com/' + data.github), `https://github.com/${data.github}`, { fallback: false });
-const linkedinLink = terminalLink(purple('linkedin.com/in/' + data.linkedin), `https://linkedin.com/in/${data.linkedin}`, { fallback: false });
-const webLink = terminalLink(green(data.web), data.web, { fallback: false });
+// Clickable links
+const emailLink = terminalLink(neonCyan(data.email), `mailto:${data.email}`, { fallback: false });
+const githubLink = terminalLink(hotMagenta('github.com/' + data.github), `https://github.com/${data.github}`, { fallback: false });
+const linkedinLink = terminalLink(hotMagenta('linkedin.com/in/' + data.linkedin), `https://linkedin.com/in/${data.linkedin}`, { fallback: false });
+const webLink = terminalLink(electricGreen(data.web), data.web, { fallback: false });
 
-// Tech stack formatted
-const techLine1 = blue(data.techStack.languages.slice(0, 4).join(' · '));
-const techLine2 = magenta(data.techStack.ai.slice(0, 4).join(' · '));
-const techLine3 = green(data.techStack.frameworks.slice(0, 4).join(' · '));
+// Tech stack formatted - shorter
+const techLine1 = neonCyan(data.techStack.languages.slice(0, 3).join(' · '));
+const techLine2 = hotMagenta(data.techStack.ai.slice(0, 3).join(' · '));
+const techLine3 = electricGreen(data.techStack.frameworks.slice(0, 3).join(' · '));
 
-// Alchemist potion ASCII art with smoke containing name/title
+// Wizard ASCII art (Braille) - colored with gradient effect
+const wizardArt = [
+    hotMagenta('  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠛⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿'),
+    hotMagenta('  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠁⠄⠄⠄⠄⠈⠄⠈⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿'),
+    hotMagenta('  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⠄⠄⣠⣶⣷⣦⣠⡄⠄⠄⠈⣿⣿⣿⣿⣿⣿⣿⣿'),
+    neonCyan('  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⡻⠟⠄⢰⣿⣿⣿⣿⣿⡿⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿'),
+    neonCyan('  ⣿⣿⣿⣿⣿⣿⣿⣿⣽⢉⠁⠄⠚⠙⠻⢿⢿⣿⡀⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿'),
+    neonCyan('  ⣿⣿⣿⣿⣿⣿⣿⣿⣃⠆⠄⠄⠄⠄⢀⡆⠄⠄⠄⠄⠠⠳⠃⡏⠈⢙⣿⣿⣿⣿'),
+    electricGreen('  ⣿⣿⣿⣿⣿⣿⣿⣿⠯⠄⠓⣤⣦⡶⢿⠇⠄⠄⠄⠄⠄⡄⡜⠄⠄⠌⡫⣿⣿⣿'),
+    electricGreen('  ⣿⣿⣿⣿⣿⣿⣿⡣⠁⠄⠄⠋⣤⣄⡀⠄⠄⠄⠄⠄⠄⢣⢍⠄⠄⠄⠆⣿⣿⣿'),
+    electricGreen('  ⣿⣿⣿⠛⠛⠉⠙⢂⣠⡖⡀⠄⠓⠄⠄⠄⠄⠄⠄⢐⣾⣷⡀⠄⠄⠘⠄⣿⣿⣿'),
+    terminalAmber('  ⣿⣿⣿⠄⠄⠄⠄⣿⣿⣿⣿⡝⡄⠄⠄⠄⠄⠄⠄⠄⠙⢿⣧⡀⠄⠄⢀⢿⣿⣿'),
+    terminalAmber('  ⣿⣿⣿⡀⠄⠄⠄⢿⣿⣿⣿⣇⠁⣀⡀⠄⠄⠄⠄⠄⠄⠰⣿⡂⠄⠁⠄⠈⣿')
+];
+
+// Build box content with proper padding (50 char inner width)
+const boxWidth = 50;
+const headerText = '>> AI_ALCHEMIST.exe';
+const taglineText = '"' + data.tagline + '"';
+const headerPadded = headerText.padEnd(boxWidth - 1);
+const taglinePadded = taglineText.padEnd(boxWidth - 1);
+
+// Cyberpunk styled output - vertical layout for better terminal compatibility
 const output = `
-${smokeLight('                 · ˚ ✦ ˚ ·')}
-${smoke('           ░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░')}
-${smoke('         ░▒░')}    ${gold.bold(data.name)}    ${smoke('░▒░')}
-${smoke('         ░▒░')} ${cyan(data.title)} ${smoke('░▒░')}
-${smoke('           ░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░')}
-${smokeLight('                 · ✦ · ✦ ·')}
-${smoke('                   ░░░░░░░')}
-${smoke('                     ░░░')}
-${purple('                   ╔═════╗')}
-${purple('                   ║     ║')}
-${purple('               ╔═══╝     ╚═══╗')}
-${magenta('               ║')}${green(' ░░▒▓███▓▒░░ ')}${magenta('║')}
-${magenta('               ║')}${cyan(' ░░▒▓███▓▒░░ ')}${magenta('║')}
-${magenta('               ║')}${green(' ░░▒▓███▓▒░░ ')}${magenta('║')}
-${magenta('               ║')}${cyan(' ░░▒▓███▓▒░░ ')}${magenta('║')}
-${purple('               ╚═════════════╝')}
+${wizardArt.join('\n')}
 
-${gold('              ~*~ AI Alchemist ~*~')}
-${dim.italic('       "' + data.tagline + '"')}
+  ${terminalAmber.bold(data.name)}
+  ${white(data.title)}
+  ${gray(data.location)}
 
-   ${labelEmail}     ${emailLink}
-   ${labelGithub}    ${githubLink}
-   ${labelLinkedin}  ${linkedinLink}
-   ${labelWeb}       ${webLink}
+${gray('╔' + '═'.repeat(boxWidth) + '╗')}
+${gray('║')} ${neonPink('>>')} ${terminalAmber.bold('AI_ALCHEMIST.exe')}${' '.repeat(boxWidth - 20)}${gray('║')}
+${gray('║')} ${dim.italic('"' + data.tagline + '"')}${' '.repeat(boxWidth - 49)}${gray('║')}
+${gray('╚' + '═'.repeat(boxWidth) + '╝')}
 
-${dim('   ──────────────── Tech Stack ────────────────')}
+  ${labelEmail}${emailLink}
+  ${labelGithub}${githubLink}
+  ${labelLinkedin}${linkedinLink}
+  ${labelWeb}${webLink}
 
-   ${techLine1}
-   ${techLine2}
-   ${techLine3}
+${dim('▀▀▀▀▀▀▀▀▀▀▀▀')} ${neonCyan.bold('TECH_STACK')} ${dim('▀▀▀▀▀▀▀▀▀▀▀▀')}
+  ${gray('░')} ${techLine1}
+  ${gray('░')} ${techLine2}
+  ${gray('░')} ${techLine3}
+${dim('▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄')}
 
-${dim('   ────────────────────────────────────────────')}
-
-   ${labelCard}      ${orange(data.npx)}
+  ${gray('>')} ${white.bold('RUN:')} ${terminalAmber(data.npx)}
+${dim('█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▓█')}
 `;
 
-// Box it up with mystical purple border
+// Box with cyberpunk magenta border
 const boxed = boxen(output, {
     padding: 1,
     margin: 1,
     borderStyle: 'double',
-    borderColor: '#9B59B6'
+    borderColor: '#FF00FF'
 });
 
 export function getCard() {
