@@ -10,7 +10,39 @@ npx ericmaddox
 
 ## Preview
 
-![npx ericmaddox](assets/npx_card.jpg)
+```
+  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠛⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠁⠄⠄⠄⠄⠈⠄⠈⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿
+  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⠄⠄⣠⣶⣷⣦⣠⡄⠄⠄⠈⣿⣿⣿⣿⣿⣿⣿⣿
+  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⡻⠟⠄⢰⣿⣿⣿⣿⣿⡿⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿
+  ⣿⣿⣿⣿⣿⣿⣿⣿⣽⢉⠁⠄⠚⠙⠻⢿⢿⣿⡀⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿
+  ⣿⣿⣿⣿⣿⣿⣿⣿⣃⠆⠄⠄⠄⠄⢀⡆⠄⠄⠄⠄⠠⠳⠃⡏⠈⢙⣿⣿⣿⣿
+  ⣿⣿⣿⣿⣿⣿⣿⣿⠯⠄⠓⣤⣦⡶⢿⠇⠄⠄⠄⠄⠄⡄⡜⠄⠄⠌⡫⣿⣿⣿
+  ⣿⣿⣿⣿⣿⣿⣿⡣⠁⠄⠄⠋⣤⣄⡀⠄⠄⠄⠄⠄⠄⢣⢍⠄⠄⠄⠆⣿⣿⣿
+  ⣿⣿⣿⠛⠛⠉⠙⢂⣠⡖⡀⠄⠓⠄⠄⠄⠄⠄⠄⢐⣾⣷⡀⠄⠄⠘⠄⣿⣿⣿
+  ⣿⣿⣿⠄⠄⠄⠄⣿⣿⣿⣿⡝⡄⠄⠄⠄⠄⠄⠄⠄⠙⢿⣧⡀⠄⠄⢀⢿⣿⣿
+  ⣿⣿⣿⡀⠄⠄⠄⢿⣿⣿⣿⣇⠁⣀⡀⠄⠄⠄⠄⠄⠄⠰⣿⡂⠄⠁⠄⠈⣿
+
+  Eric Maddox
+  Senior Technical Program Manager
+  Atlanta, GA
+
+╔══════════════════════════════════════════════════╗
+║ >> AI_ALCHEMIST.exe                              ║
+║ "Transforming Data Into Actionable Intelligence" ║
+╚══════════════════════════════════════════════════╝
+
+  [EMAIL]    aialchemist.dev@gmail.com
+  [GITHUB]   github.com/ericmaddox
+  [LINKEDIN] linkedin.com/in/ericmaddox270
+  [WEB]      https://www.aialchemist.dev/
+
+▀▀▀▀▀▀▀▀▀▀▀▀ TECH_STACK ▀▀▀▀▀▀▀▀▀▀▀▀
+  ░ Python · JavaScript · TypeScript
+  ░ OpenAI · LangChain · TensorFlow
+  ░ React · Next.js · Node.js
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+```
 
 ## Features
 
