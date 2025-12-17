@@ -25,7 +25,3 @@ npx ericmaddox
 - 🌐 Website: [aialchemist.dev](https://www.aialchemist.dev/)
 - 💻 GitHub: [github.com/ericmaddox](https://github.com/ericmaddox)
 - 💼 LinkedIn: [linkedin.com/in/ericmaddox270](https://linkedin.com/in/ericmaddox270)
-
-## License
-
-MIT
