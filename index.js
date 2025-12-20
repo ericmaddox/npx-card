@@ -81,7 +81,8 @@ export async function getCard() {
 
   let statsSection = '';
   if (stats) {
-    const statLine = `${white.bold(stats.followers)} ${gray('Followers')} · ${white.bold(stats.repos)} ${gray('Repos')}`;
+    const totalRepos = stats.repos + (data.privateRepos || 0);
+    const statLine = `${white.bold(stats.followers)} ${gray('Followers')} · ${white.bold(totalRepos)} ${gray('Repos')}`;
     statsSection = `
 ${dim('▀▀▀▀▀▀▀▀▀▀▀▀')} ${white.bold('GH_STATS')} ${dim('▀▀▀▀▀▀▀▀▀▀▀▀▀▀')}
   ${statLine}
