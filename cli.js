@@ -15,7 +15,7 @@ const gray = chalk.hex('#888888');
 const dim = chalk.dim;
 
 // Display the card
-console.log(getCard());
+console.log(await getCard());
 
 // Cyberpunk styled menu
 console.log(gray('┌─────────────────────────────────────────┐'));

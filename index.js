@@ -46,15 +46,18 @@ const wizardArt = [
 ];
 
 // Build box content with proper padding (50 char inner width)
-const boxWidth = 50;
+// Build box content with proper padding (54 char inner width to fit tagline)
+const boxWidth = 54;
 const headerText = '>> AI_ALCHEMIST.exe';
 const taglineText = '"' + data.tagline + '"';
-const headerPadded = headerText.padEnd(boxWidth - 1);
-const taglinePadded = taglineText.padEnd(boxWidth - 1);
 
 // Cyberpunk styled output - vertical layout for better terminal compatibility
 
 export async function getCard() {
+  // Calculate dynamic padding
+  const headerPadding = Math.max(0, boxWidth - headerText.length - 2 - 1); // -2 for arrows, -1 for space
+  const taglinePadding = Math.max(0, boxWidth - taglineText.length - 1); // -1 for space
+
   const output = `
 ${wizardArt.join('\n')}
 
@@ -63,8 +66,8 @@ ${wizardArt.join('\n')}
   ${gray(data.location)}
 
 ${gray('╔' + '═'.repeat(boxWidth) + '╗')}
-${gray('║')} ${neonPink('>>')} ${terminalAmber.bold('AI_ALCHEMIST.exe')}${' '.repeat(boxWidth - 20)}${gray('║')}
-${gray('║')} ${dim.italic('"' + data.tagline + '"')}${' '.repeat(boxWidth - 49)}${gray('║')}
+${gray('║')} ${neonPink('>>')} ${terminalAmber.bold('AI_ALCHEMIST.exe')}${' '.repeat(headerPadding)}${gray('║')}
+${gray('║')} ${dim.italic(taglineText)}${' '.repeat(taglinePadding)}${gray('║')}
 ${gray('╚' + '═'.repeat(boxWidth) + '╝')}
 
   ${labelEmail}${emailLink}
