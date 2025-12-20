@@ -53,7 +53,43 @@ const headerPadded = headerText.padEnd(boxWidth - 1);
 const taglinePadded = taglineText.padEnd(boxWidth - 1);
 
 // Cyberpunk styled output - vertical layout for better terminal compatibility
-const output = `
+
+// Helper to fetch GitHub stats
+async function getGitHubStats() {
+  try {
+    const response = await fetch(`https://api.github.com/users/${data.github}`);
+    if (!response.ok) return null;
+    const userData = await response.json();
+    return {
+      followers: userData.followers,
+      repos: userData.public_repos
+    };
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function getCard() {
+  // Fetch stats (with timeout fallback to avoid hanging)
+  const statsPromise = getGitHubStats();
+
+  // Create a timeout promise
+  const timeoutPromise = new Promise(resolve => setTimeout(resolve, 1500, null));
+
+  // Race them - if fetch takes too long, just show card without stats
+  const stats = await Promise.race([statsPromise, timeoutPromise]);
+
+  let statsSection = '';
+  if (stats) {
+    const statLine = `${white.bold(stats.followers)} ${gray('Followers')} · ${white.bold(stats.repos)} ${gray('Repos')}`;
+    statsSection = `
+${dim('▀▀▀▀▀▀▀▀▀▀▀▀')} ${white.bold('GH_STATS')} ${dim('▀▀▀▀▀▀▀▀▀▀▀▀▀▀')}
+  ${statLine}
+`;
+  }
+
+  // Reconstruct output to include stats
+  const output = `
 ${wizardArt.join('\n')}
 
   ${terminalAmber.bold(data.name)}
@@ -69,7 +105,7 @@ ${gray('╚' + '═'.repeat(boxWidth) + '╝')}
   ${labelGithub}${githubLink}
   ${labelLinkedin}${linkedinLink}
   ${labelWeb}${webLink}
-
+${statsSection}
 ${dim('▀▀▀▀▀▀▀▀▀▀▀▀')} ${neonCyan.bold('TECH_STACK')} ${dim('▀▀▀▀▀▀▀▀▀▀▀▀')}
   ${gray('░')} ${techLine1}
   ${gray('░')} ${techLine2}
@@ -80,18 +116,14 @@ ${dim('▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄�
 ${dim('█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▓█')}
 `;
 
-// Box with cyberpunk magenta border
-const boxed = boxen(output, {
-  padding: 1,
-  margin: 1,
-  borderStyle: 'double',
-  borderColor: '#FF00FF'
-});
-
-export function getCard() {
-  return boxed;
+  return boxen(output, {
+    padding: 1,
+    margin: 1,
+    borderStyle: 'double',
+    borderColor: '#FF00FF'
+  });
 }
 
-export default function () {
-  return boxed;
+export default async function () {
+  return await getCard();
 }
