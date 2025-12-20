@@ -53,7 +53,9 @@ const headerPadded = headerText.padEnd(boxWidth - 1);
 const taglinePadded = taglineText.padEnd(boxWidth - 1);
 
 // Cyberpunk styled output - vertical layout for better terminal compatibility
-const output = `
+
+export async function getCard() {
+  const output = `
 ${wizardArt.join('\n')}
 
   ${terminalAmber.bold(data.name)}
@@ -80,18 +82,14 @@ ${dim('▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄�
 ${dim('█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▓█')}
 `;
 
-// Box with cyberpunk magenta border
-const boxed = boxen(output, {
-  padding: 1,
-  margin: 1,
-  borderStyle: 'double',
-  borderColor: '#FF00FF'
-});
-
-export function getCard() {
-  return boxed;
+  return boxen(output, {
+    padding: 1,
+    margin: 1,
+    borderStyle: 'double',
+    borderColor: '#FF00FF'
+  });
 }
 
-export default function () {
-  return boxed;
+export default async function () {
+  return await getCard();
 }
