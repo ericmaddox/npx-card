@@ -52,7 +52,7 @@ export async function getCard() {
   const taglinePadding = Math.max(0, boxWidth - taglineText.length - 1); // -1 for space
 
   // Render Image
-  const imagePath = path.join(__dirname, 'assets', 'npx_cardv3.png');
+  const imagePath = path.join(__dirname, 'assets', 'npx_cardv4.png');
   let imageOutput = '';
   try {
     imageOutput = await terminalImage.file(imagePath, { width: '50%' });
