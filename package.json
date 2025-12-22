@@ -31,6 +31,7 @@
     "ericmaddox": "^1.0.18",
     "inquirer": "^13.1.0",
     "open": "^11.0.0",
+    "terminal-image": "^4.1.0",
     "terminal-link": "^5.0.0"
   }
 }
