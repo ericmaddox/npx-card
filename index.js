@@ -111,14 +111,12 @@ export async function getCard() {
   const imagePath = path.join(__dirname, 'assets', 'npx_cardv5.png');
   let imageOutput = '';
   try {
-    imageOutput = await terminalImage.file(imagePath, { width: '50%' });
+    imageOutput = await terminalImage.file(imagePath, { width: 62 });
   } catch (e) {
     imageOutput = gray('[Image rendering failed in this terminal]');
   }
 
-  const output = `
-${imageOutput}
-
+  const textOutput = `
   ${terminalAmber.bold(data.name)}
   ${white(data.title)}
   ${gray(data.location)}
@@ -150,13 +148,15 @@ ${imageOutput}
   ${dim('█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▓█')}
 `;
 
-  return boxen(output, {
+  const boxedContent = boxen(textOutput, {
     padding: 1,
-    margin: 1,
+    margin: { top: 1, bottom: 1, left: 1, right: 1 },
     borderStyle: 'double',
     borderColor: '#FF00FF',
     width: 62
   });
+
+  return `${imageOutput}\n${boxedContent}`;
 }
 
 export default async function () {
