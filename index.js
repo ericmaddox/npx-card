@@ -5,6 +5,7 @@ import data from './lib/data.js';
 import terminalImage from 'terminal-image';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import os from 'os';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -46,7 +47,36 @@ const taglineText = '"' + data.tagline + '"';
 
 // Cyberpunk styled output - vertical layout for better terminal compatibility
 
+async function getEnvironmentData() {
+  const platform = os.platform();
+  const date = new Date();
+  const hour = date.getHours();
+  const timeStr = date.toLocaleTimeString();
+
+  let greeting = '>> SYSTEM_ONLINE: Welcome, Agent.';
+
+  if (hour >= 22 || hour < 5) {
+    greeting = '>> Late night operations, Agent? Welcome.';
+  } else if (platform === 'linux') {
+    greeting = '>> Detected Linux environment. Optimized for shell performance.';
+  }
+
+  let weatherData = 'Location: Unknown | Intelligence: Offline';
+  try {
+    const response = await fetch('https://wttr.in/?format=%l:+%c+%t', { signal: AbortSignal.timeout(3000) });
+    if (response.ok) {
+      weatherData = await response.text();
+    }
+  } catch (e) {
+    weatherData = 'Signal Lost: Environment data unavailable';
+  }
+
+  return { greeting, weatherData, timeStr, platform };
+}
+
 export async function getCard() {
+  const env = await getEnvironmentData();
+
   // Calculate dynamic padding
   const headerPadding = Math.max(0, boxWidth - headerText.length - 2 - 1); // -2 for arrows, -1 for space
   const taglinePadding = Math.max(0, boxWidth - taglineText.length - 1); // -1 for space
@@ -66,6 +96,13 @@ ${imageOutput}
   ${terminalAmber.bold(data.name)}
   ${white(data.title)}
   ${gray(data.location)}
+
+${dim('▀▀▀▀▀▀▀▀▀▀▀▀')} ${neonCyan.bold('SYSTEM_DIAGNOSTICS')} ${dim('▀▀▀▀▀▀▀▀▀▀▀▀')}
+  ${electricGreen(env.greeting)}
+  ${gray('░')} ${white('LOCAL_TIME:')} ${neonCyan(env.timeStr)}
+  ${gray('░')} ${white('LOC_INTEL:')} ${terminalAmber(env.weatherData)}
+  ${gray('░')} ${white('OS_K0RE:')} ${hotMagenta(env.platform)}
+${dim('▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄')}
 
 ${gray('╔' + '═'.repeat(boxWidth) + '╗')}
 ${gray('║')} ${neonPink('>>')} ${terminalAmber.bold('AI_ALCHEMIST.exe')}${' '.repeat(headerPadding)}${gray('║')}
