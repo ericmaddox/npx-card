@@ -38,12 +38,10 @@ const techLine3 = electricGreen(data.techStack.frameworks.slice(0, 3).join(' · 
 
 
 
-// Build box content with proper padding (50 char inner width)
-// Build box content with proper padding (54 char inner width to fit tagline)
-// Build box content with proper padding (80 char inner width to fit large art)
-const boxWidth = 80;
-const headerText = '>> AI_ALCHEMIST.exe';
-const taglineText = '"' + data.tagline + '"';
+// Build box content with consistent width
+const contentWidth = 56;
+const headerLabel = 'AI_ALCHEMIST.exe';
+const taglineText = data.tagline;
 
 // Cyberpunk styled output - vertical layout for better terminal compatibility
 
@@ -76,7 +74,7 @@ async function getEnvironmentData() {
   try {
     const response = await fetch('https://wttr.in/?format=%l:+%c+%t', { signal: AbortSignal.timeout(3000) });
     if (response.ok) {
-      weatherData = await response.text();
+      weatherData = (await response.text()).trim();
     }
   } catch (e) {
     weatherData = 'Signal Lost: Environment data unavailable';
@@ -88,9 +86,24 @@ async function getEnvironmentData() {
 export async function getCard() {
   const env = await getEnvironmentData();
 
-  // Calculate dynamic padding
-  const headerPadding = Math.max(0, boxWidth - headerText.length - 2 - 1); // -2 for arrows, -1 for space
-  const taglinePadding = Math.max(0, boxWidth - taglineText.length - 1); // -1 for space
+  // Helper for consistent separator bars
+  const makeBar = (label, color) => {
+    const side = '▀'.repeat(Math.max(0, Math.floor((contentWidth - label.length - 2) / 2)));
+    return dim(side) + ' ' + color.bold(label) + ' ' + dim(side);
+  };
+  const bottomBar = dim('▄'.repeat(contentWidth));
+
+  // Inner box padding calculation
+  const innerBoxWidth = contentWidth - 4;
+  const hContent = `${neonPink(' >> ')}${terminalAmber.bold(headerLabel)}`;
+  const hRawLen = 4 + headerLabel.length;
+  const hPad = ' '.repeat(Math.max(0, innerBoxWidth - hRawLen));
+
+  const tContent = `${dim.italic(` "${taglineText}" `)}`;
+  const tRawLen = taglineText.length + 4;
+  const tPad = ' '.repeat(Math.max(0, innerBoxWidth - tRawLen));
+
+
 
   // Render Image
   const imagePath = path.join(__dirname, 'assets', 'npx_cardv5.png');
@@ -108,31 +121,31 @@ ${imageOutput}
   ${white(data.title)}
   ${gray(data.location)}
 
-${dim('▀▀▀▀▀▀▀▀▀▀▀▀')} ${neonCyan.bold('SYSTEM_DIAGNOSTICS')} ${dim('▀▀▀▀▀▀▀▀▀▀▀▀')}
-  ${electricGreen(env.greeting)}
-  ${gray('░')} ${white('LOCAL_TIME:')} ${neonCyan(env.timeStr)}
-  ${gray('░')} ${white('LOC_INTEL:')} ${terminalAmber(env.weatherData)}
-  ${gray('░')} ${white('OS_K0RE:')} ${hotMagenta(env.platform)}
-${dim('▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄')}
+  ${makeBar('SYSTEM_DIAGNOSTICS', neonCyan)}
+    ${electricGreen(env.greeting)}
+    ${gray('░')} ${white('TIME:')} ${neonCyan(env.timeStr)}
+    ${gray('░')} ${white('LOC:')} ${terminalAmber(env.weatherData)}
+    ${gray('░')} ${white('OS:')} ${hotMagenta(env.platform)}
+  ${bottomBar}
 
-${gray('╔' + '═'.repeat(boxWidth) + '╗')}
-${gray('║')} ${neonPink('>>')} ${terminalAmber.bold('AI_ALCHEMIST.exe')}${' '.repeat(headerPadding)}${gray('║')}
-${gray('║')} ${dim.italic(taglineText)}${' '.repeat(taglinePadding)}${gray('║')}
-${gray('╚' + '═'.repeat(boxWidth) + '╝')}
+  ${gray('╔' + '═'.repeat(innerBoxWidth) + '╗')}
+  ${gray('║')}${hContent}${hPad}${gray('║')}
+  ${gray('║')}${tContent}${tPad}${gray('║')}
+  ${gray('╚' + '═'.repeat(innerBoxWidth) + '╝')}
 
   ${labelEmail}${emailLink}
   ${labelGithub}${githubLink}
   ${labelLinkedin}${linkedinLink}
   ${labelWeb}${webLink}
 
-${dim('▀▀▀▀▀▀▀▀▀▀▀▀')} ${neonCyan.bold('TECH_STACK')} ${dim('▀▀▀▀▀▀▀▀▀▀▀▀')}
-  ${gray('░')} ${techLine1}
-  ${gray('░')} ${techLine2}
-  ${gray('░')} ${techLine3}
-${dim('▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄')}
+  ${makeBar('TECH_STACK', neonCyan)}
+    ${gray('░')} ${techLine1}
+    ${gray('░')} ${techLine2}
+    ${gray('░')} ${techLine3}
+  ${bottomBar}
 
   ${gray('>')} ${white.bold('RUN:')} ${terminalAmber(data.npx)}
-${dim('█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▓█')}
+  ${dim('█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▓█')}
 `;
 
   return boxen(output, {
