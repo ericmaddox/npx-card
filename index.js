@@ -104,7 +104,7 @@ export async function getCard() {
   const bottomBar = dim('▄'.repeat(contentWidth));
 
   // Inner box padding calculation
-  const innerBoxWidth = contentWidth - 4;
+  const innerBoxWidth = contentWidth - 2;
   const hContent = `${neonPink(' >> ')}${terminalAmber.bold(headerLabel)}`;
   const hRawLen = 4 + headerLabel.length;
   const hPad = ' '.repeat(Math.max(0, innerBoxWidth - hRawLen));
@@ -160,7 +160,7 @@ export async function getCard() {
   ${bottomBar}
 
   ${gray('>')} ${fixLine(white.bold('RUN: ') + terminalAmber(data.npx), 5 + data.npx.length, contentWidth - 2)}
-  ${dim('█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▓█')}
+  ${dim('█▓▒' + '░'.repeat(contentWidth - 6) + '▒▓█')}
 `;
 
   return boxen(textOutput, {
