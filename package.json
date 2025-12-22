@@ -7,6 +7,13 @@
   "bin": {
     "ericmaddox": "cli.js"
   },
+  "files": [
+    "index.js",
+    "cli.js",
+    "lib",
+    "assets",
+    "README.md"
+  ],
   "scripts": {
     "test": "node cli.js"
   },
