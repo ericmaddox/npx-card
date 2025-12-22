@@ -39,7 +39,7 @@ const techLine3 = electricGreen(data.techStack.frameworks.slice(0, 3).join(' · 
 
 
 // Build box content with consistent width
-const contentWidth = 54;
+const contentWidth = 52;
 const headerLabel = 'AI_ALCHEMIST.exe';
 const taglineText = data.tagline;
 
@@ -75,6 +75,8 @@ async function getEnvironmentData() {
     const response = await fetch('https://wttr.in/?format=%l:+%c+%t', { signal: AbortSignal.timeout(3000) });
     if (response.ok) {
       weatherData = (await response.text()).trim();
+      // Aggressively remove all non-ASCII characters and emojis to prevent misalignment
+      weatherData = weatherData.replace(/[^\x20-\x7E]/g, '');
     }
   } catch (e) {
     weatherData = 'Signal Lost: Environment data unavailable';
@@ -111,21 +113,28 @@ export async function getCard() {
   const imagePath = path.join(__dirname, 'assets', 'npx_cardv5.png');
   let imageOutput = '';
   try {
-    imageOutput = await terminalImage.file(imagePath, { width: 62 });
+    imageOutput = await terminalImage.file(imagePath, { width: 52 });
   } catch (e) {
     imageOutput = gray('[Image rendering failed in this terminal]');
   }
 
+  // Helper for padding lines with ANSI codes correctly
+  const fixLine = (text, visibleLen, targetWidth) => {
+    return text + ' '.repeat(Math.max(0, targetWidth - visibleLen));
+  };
+
   const textOutput = `
-  ${terminalAmber.bold(data.name)}
-  ${white(data.title)}
-  ${gray(data.location)}
+  ${imageOutput}
+
+  ${fixLine(terminalAmber.bold(data.name), data.name.length, contentWidth)}
+  ${fixLine(white(data.title), data.title.length, contentWidth)}
+  ${fixLine(gray(data.location), data.location.length, contentWidth)}
 
   ${makeBar('SYSTEM_DIAGNOSTICS', neonCyan)}
-    ${electricGreen(env.greeting)}
-    ${gray('░')} ${white('TIME:')} ${neonCyan(env.timeStr)}
-    ${gray('░')} ${white('LOC:')} ${terminalAmber(env.weatherData)}
-    ${gray('░')} ${white('OS:')} ${hotMagenta(env.platform)}
+    ${fixLine(electricGreen(env.greeting), env.greeting.length, contentWidth - 2)}
+    ${gray('░')} ${fixLine(white('TIME: ') + neonCyan(env.timeStr), 6 + env.timeStr.length, contentWidth - 4)}
+    ${gray('░')} ${fixLine(white('LOC:  ') + terminalAmber(env.weatherData), 6 + env.weatherData.length, contentWidth - 4)}
+    ${gray('░')} ${fixLine(white('OS:   ') + hotMagenta(env.platform), 6 + env.platform.length, contentWidth - 4)}
   ${bottomBar}
 
   ${gray('╔' + '═'.repeat(innerBoxWidth) + '╗')}
@@ -133,30 +142,28 @@ export async function getCard() {
   ${gray('║')}${tContent}${tPad}${gray('║')}
   ${gray('╚' + '═'.repeat(innerBoxWidth) + '╝')}
 
-  ${labelEmail}${emailLink}
-  ${labelGithub}${githubLink}
-  ${labelLinkedin}${linkedinLink}
-  ${labelWeb}${webLink}
+  ${fixLine(labelEmail + emailLink, 9 + data.email.length, contentWidth)}
+  ${fixLine(labelGithub + githubLink, 9 + 11 + data.github.length, contentWidth)}
+  ${fixLine(labelLinkedin + linkedinLink, 11 + 16 + data.linkedin.length, contentWidth)}
+  ${fixLine(labelWeb + webLink, 7 + data.web.length, contentWidth)}
 
   ${makeBar('TECH_STACK', neonCyan)}
-    ${gray('░')} ${techLine1}
-    ${gray('░')} ${techLine2}
-    ${gray('░')} ${techLine3}
+    ${gray('░')} ${fixLine(techLine1, data.techStack.languages.slice(0, 3).join(' · ').length, contentWidth - 2)}
+    ${gray('░')} ${fixLine(techLine2, data.techStack.ai.slice(0, 3).join(' · ').length, contentWidth - 2)}
+    ${gray('░')} ${fixLine(techLine3, data.techStack.frameworks.slice(0, 3).join(' · ').length, contentWidth - 2)}
   ${bottomBar}
 
-  ${gray('>')} ${white.bold('RUN:')} ${terminalAmber(data.npx)}
+  ${gray('>')} ${fixLine(white.bold('RUN: ') + terminalAmber(data.npx), 5 + data.npx.length, contentWidth - 2)}
   ${dim('█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▓█')}
 `;
 
-  const boxedContent = boxen(textOutput, {
+  return boxen(textOutput, {
     padding: 1,
-    margin: { top: 1, bottom: 1, left: 1, right: 1 },
+    margin: 1,
     borderStyle: 'double',
     borderColor: '#FF00FF',
-    width: 62
+    width: 60
   });
-
-  return `${imageOutput}\n${boxedContent}`;
 }
 
 export default async function () {
