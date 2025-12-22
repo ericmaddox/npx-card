@@ -39,7 +39,7 @@ const techLine3 = electricGreen(data.techStack.frameworks.slice(0, 3).join(' · 
 
 
 // Build box content with consistent width
-const contentWidth = 56;
+const contentWidth = 54;
 const headerLabel = 'AI_ALCHEMIST.exe';
 const taglineText = data.tagline;
 
@@ -88,8 +88,10 @@ export async function getCard() {
 
   // Helper for consistent separator bars
   const makeBar = (label, color) => {
-    const side = '▀'.repeat(Math.max(0, Math.floor((contentWidth - label.length - 2) / 2)));
-    return dim(side) + ' ' + color.bold(label) + ' ' + dim(side);
+    const remaining = Math.max(0, contentWidth - label.length - 2);
+    const leftCount = Math.floor(remaining / 2);
+    const rightCount = remaining - leftCount;
+    return dim('▀'.repeat(leftCount)) + ' ' + color.bold(label) + ' ' + dim('▀'.repeat(rightCount));
   };
   const bottomBar = dim('▄'.repeat(contentWidth));
 
@@ -152,7 +154,8 @@ ${imageOutput}
     padding: 1,
     margin: 1,
     borderStyle: 'double',
-    borderColor: '#FF00FF'
+    borderColor: '#FF00FF',
+    width: 62
   });
 }
 
