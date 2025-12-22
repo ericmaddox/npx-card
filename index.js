@@ -72,14 +72,20 @@ async function getEnvironmentData() {
 
   let weatherData = 'Location: Unknown | Intelligence: Offline';
   try {
-    const response = await fetch('https://wttr.in/?format=%l:+%c+%t', { signal: AbortSignal.timeout(3000) });
+    const response = await fetch('https://wttr.in/?format=%l:+%c+%t', {
+      signal: AbortSignal.timeout(5000),
+      headers: { 'User-Agent': 'curl/7.64.1' } // Sometimes wttr.in prefers curl-like headers
+    });
+
     if (response.ok) {
       weatherData = (await response.text()).trim();
       // Aggressively remove all non-ASCII characters and emojis to prevent misalignment
       weatherData = weatherData.replace(/[^\x20-\x7E]/g, '');
+    } else {
+      weatherData = `Signal Weak: Status ${response.status}`;
     }
   } catch (e) {
-    weatherData = 'Signal Lost: Environment data unavailable';
+    weatherData = 'Signal Lost: Intelligence Offline';
   }
 
   return { greeting, weatherData, timeStr, platform };
