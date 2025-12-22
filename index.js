@@ -53,12 +53,23 @@ async function getEnvironmentData() {
   const hour = date.getHours();
   const timeStr = date.toLocaleTimeString();
 
-  let greeting = '>> SYSTEM_ONLINE: Welcome, Agent.';
+  // Detect local user
+  let username = 'Agent';
+  try {
+    const info = os.userInfo();
+    if (info && info.username && !['root', 'admin', 'user'].includes(info.username.toLowerCase())) {
+      username = info.username.charAt(0).toUpperCase() + info.username.slice(1);
+    }
+  } catch (e) {
+    // Fallback to Agent
+  }
+
+  let greeting = `>> SYSTEM_ONLINE: Welcome, ${username}.`;
 
   if (hour >= 22 || hour < 5) {
-    greeting = '>> Late night operations, Agent? Welcome.';
+    greeting = `>> Late night operations, ${username}? Welcome.`;
   } else if (platform === 'linux') {
-    greeting = '>> Detected Linux environment. Optimized for shell performance.';
+    greeting = `>> Detected Linux environment. Optimized for shell performance. Welcome, ${username}.`;
   }
 
   let weatherData = 'Location: Unknown | Intelligence: Offline';
