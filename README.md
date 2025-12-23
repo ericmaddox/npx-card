@@ -20,6 +20,12 @@ npx ericmaddox
 - Interactive menu to open links directly
 - Terminal-style cyberpunk aesthetics
 
+---
+
+<p align="center">
+  <img src="https://github.com/ericmaddox/npx-card/blob/main/assets/npx_business_cardv5.png?raw=true" width="400" alt="npx business card v5 representation">
+</p>
+
 ## Links
 
 - Website: [aialchemist.dev](https://www.aialchemist.dev/)
