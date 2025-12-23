@@ -10,7 +10,9 @@ npx ericmaddox
 
 ## Preview
 
-![npx ericmaddox](https://github.com/ericmaddox/npx-card/blob/main/assets/npx_cardv5.png?raw=true)
+<p align="center">
+  <img src="https://github.com/ericmaddox/npx-card/blob/main/assets/npx_cardv5.png?raw=true" width="600" alt="npx ericmaddox terminal preview">
+</p>
 
 ## Features
 
