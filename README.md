@@ -16,7 +16,7 @@ npx ericmaddox
 
 ## Features
 
-- Cyberpunk ASCII art
+- Cyberpunk features
 - Neon color scheme (magenta, cyan, green, amber)
 - Clickable links for email, GitHub, LinkedIn, and website
 - Interactive menu to open links directly
